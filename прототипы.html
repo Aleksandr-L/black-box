@@ -1,0 +1,132 @@
+<!--DOCTYPE html-->
+<html>
+<head>
+    <title> прототипы </title>
+<meta charset = "UTF-8">
+
+    <body>
+<script>
+    var parag = document.createElement("p");
+        document.body.appendChild(parag);
+        document.querySelector("p").innerHTML = "первое число";
+    var pole = document.createElement("input");
+    document.body.appendChild(pole);
+    pole.name = "pole1";
+    pole.style = "height: 30px; width: 200px;";
+    pole.placeholder =" ";
+    pole.id = "n1";
+
+    var parag = document.createElement("h3");
+    document.body.appendChild(parag);
+    document.querySelector("h3").innerHTML = "второе число";
+    var pole2 = document.createElement("input");
+    document.body.appendChild(pole2);
+    pole2.name = "pole2";
+    pole2.style = "height: 30px; width: 200px;";
+    pole2.placeholder =" ";
+    pole2.id = "n2";
+
+    var button = document.createElement("button");
+    document.body.appendChild(button);
+    button.type = "button";
+    button.value= 'сложить';
+    button.style = "height: 20px; width: 70px;"
+    button.textContent = "сложить";
+    button.name = "btnplus";
+    button.onclick = plus;
+    button.addEventListener("click", plus);
+    function plus() {
+        var num1 = document.getElementById('n1').value;
+        num1 = parseInt(num1);
+        var num2 = document.getElementById('n2').value;
+        num2 = parseInt(num2);
+        result = num1 + num2;
+        document.getElementById('out').innerHTML = result;
+        // var num1 = document.getElementById('n1').value;
+        // num1 = parseInt(num1);
+        // var num2 = document.getElementById('n2').value;
+        // num2 = parseInt(num2);
+        //
+       };
+
+    var button = document.createElement("button");
+    document.body.appendChild(button);
+    button.type = "button";
+    button.value= 'вычесть';
+    button.style = "height: 20px; width: 70px;"
+    button.textContent = "вычесть";
+    button.name = "btnminus";
+    button.onclick = minus;
+    button.addEventListener("click", minus);
+    function minus() {
+        var num1 = document.getElementById('n1').value;
+        num1 = parseInt(num1);
+        var num2 = document.getElementById('n2').value;
+        num2 = parseInt(num2);
+        result = num1 - num2;
+        document.getElementById('out').innerHTML = result;
+    };
+
+    var button = document.createElement("button");
+    document.body.appendChild(button);
+    button.type = "button";
+    button.value= 'умножить';
+    button.style = "height: 20px; width: 70px;"
+    button.textContent = "умножить";
+    button.name = "btnmul";
+    button.onclick = mul;
+    button.addEventListener("click", mul);
+    function mul() {
+        var num1 = document.getElementById('n1').value;
+        num1 = parseInt(num1);
+        var num2 = document.getElementById('n2').value;
+        num2 = parseInt(num2);
+        result = num1 * num2;
+        document.getElementById('out').innerHTML = result;
+    };
+
+    var button = document.createElement("button");
+    document.body.appendChild(button);
+    button.type = "button";
+    button.value= 'делить';
+    button.style = "height: 20px; width: 70px;"
+    button.textContent = "делить";
+    button.name = "btndel";
+    button.onclick = del;
+    button.addEventListener("click", del);
+    function del() {
+        var num1 = document.getElementById('n1').value;
+        num1 = parseInt(num1);
+        var num2 = document.getElementById('n2').value;
+        num2 = parseInt(num2);
+        result = num1 / num2;
+        document.getElementById('out').innerHTML = result;
+    };
+
+
+// ответ
+    var paragr = document.createElement("h2");
+    document.body.appendChild(paragr);
+    document.querySelector("h2").innerHTML = "ответ:";
+    paragr.name = "pole2";
+    paragr.style = "height: 30px; width: 200px;";
+    paragr.placeholder =" ";
+    paragr.id = "out";
+
+
+    // var result = document.createElement("div");
+    // document.body.appendChild(result);
+    // var polew = document.createElement("input");
+    // document.body.appendChild(polew);
+    // result.className = "input";
+    // result.id = "out2";
+    // result.style.className = "height: 70px; width: 70px;";
+    // document.querySelector('div').innerHTML = 'zdsfs ';
+
+
+
+</script>
+
+</body>
+</head>
+</html>
