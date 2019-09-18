@@ -37,9 +37,5 @@ function f() {
     var nd = document.getElementsByTagName("div").value
 
 }
-function l (3,3) {
-    let a = 3,
-        b = 3;
-    c = a + b
-}alert(l)
+//
 
