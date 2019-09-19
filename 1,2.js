@@ -8,7 +8,7 @@ function plus(event) {
     //     document.getElementById('out').innerHTML = result;
 //шаг 1. Отправка  на сервер к файлу calc.php
 
-    fetch('/calc.php', {
+    fetch('https:///OSPanel/domains/test/calc.php', {
         method: 'POST',
         body: new FormData(document.forms[0])
         })
