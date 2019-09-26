@@ -6,19 +6,26 @@
 		<script src = '1,2.js'> </script>
 </head>
 		<body>
-			<form id="formElem">
-				<p>число1:<input type="text" id="n1"></p><br>
-				<p>число2:<input type="text" id="n2"></p><br>
-			</form>
-				<button onclick="plus(event)">+</button>
-				<button onclick="btnminus()">-</button>
-				<button onclick="btnmult()">*</button>
-				<button onclick="btndel()">/</button>
-			<hr>
-				<p id="out">ответ:</p>
-			<div onclick="f()">
-			</div>
+			<form name="formElem" action="" method="post">
+				<p>число1:<input type="text" name="n1"></p><br>
+				<p>число2:<input type="text" name="n2"></p><br>
 
+
+
+				<button onclick="plus(event)" name="plus" value="+">+</button>
+
+				<button onclick="plus(event)" name="btnminus" value="-">-</button>
+
+				<button onclick="plus(event)"  name="ymn" value="*">*</button>
+
+				<button onclick="plus(event)" name="del" value="/">/</button>
+
+
+
+            </form>
+
+			<hr>
+				<p id="out" name="pole">ответ:</p>
 
 		</body>
 
