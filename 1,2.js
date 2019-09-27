@@ -1,36 +1,36 @@
-function plus(event) {
-     event.preventDefault();
-   //  var num1 = document.getElementById('n1').value;
-   //  var num2 = document.getElementById('n2').value;
-   //      num2 = parseInt(num2);
-   //      num1 = parseInt(num1);
-   //  var result = num1 + num2;
-   //      document.getElementById('out').innerHTML = result;
+function click1(event) {
+     event.preventDefault()
+    // var num1 = document.getElementById('n1').value;
+    // var num2 = document.getElementById('n2').value;
+    //     num2 = parseInt(num2);
+    //     num1 = parseInt(num1);
+    // var result = num1 + num2;
+    //     document.getElementById('result').innerHTML = result;}
+
 //шаг 1. Отправка  на сервер к файлу calc.php
-//
-    fetch("calc.php", {
+
+   fetch("calc.php", {
         method: 'POST',
         body: new FormData(document.forms[0])
     })
         .then(response => response.text())
         .then(result => {
             //Шаг 3. Получение ответа от сервира, показ пользователю
-         document.getElementById('out').innerHTML = result;
+         document.getElementById('result').innerHTML = result;
         });
+ }
 
- };
-
-
-
-// function btnminus(event){
+// function btnminus(event) {
 //     event.preventDefault();
-//     // var num1,num2,result;
-//     // num1 = document.getElementById('n1').value;
-//     // num2 = document.getElementById('n2').value;
-//     // num2 = parseInt(num2);
-//     // num1 = parseInt(num1);
-//     // result = num1 - num2;
-//     fetch("/calc.php", {
+//     //  var num1 = document.getElementById('n1').value;
+//     //  var num2 = document.getElementById('n2').value;
+//     //      num2 = parseInt(num2);
+//     //      num1 = parseInt(num1);
+//     //  var result = num1 + num2;
+//     //      document.getElementById('out').innerHTML = result;
+// //шаг 1. Отправка  на сервер к файлу calc.php
+// //
+//     fetch("calculyator.php", {
 //         method: 'POST',
 //         body: new FormData(document.forms[0])
 //     })
@@ -38,8 +38,29 @@ function plus(event) {
 //         .then(result => {
 //             //Шаг 3. Получение ответа от сервира, показ пользователю
 //             document.getElementById('out').innerHTML = result;
-//         })
-// }
+//         });
+//
+// };
+//
+//
+// function btnminus(event){
+//     event.preventDefault();
+// //     // var num1,num2,result;
+// //     // num1 = document.getElementById('n1').value;
+// //     // num2 = document.getElementById('n2').value;
+// //     // num2 = parseInt(num2);
+// //     // num1 = parseInt(num1);
+// //     // result = num1 - num2;
+//     fetch("/calc.php", {
+//         method: 'POST',
+//         body: new FormData(document.forms[0])
+//     })
+//         .then(response => response.text())
+//         .then(result => {
+//             //Шаг 3. Получение ответа от сервира, показ пользователю
+//             document.querySelector('result').innerHTML = result;
+//         });
+// };
 // function btnmult(event){
 //     event.preventDefault();
 //     // var num1,num2,result;

@@ -1,0 +1,43 @@
+<!--DOCTYPE html-->
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            function gamk(event) {
+                let form =document.querySelector("form");
+                fetch("calculyator.php", {
+                    method: 'POST',
+                    body: new FormData("form")
+                })
+                    .then(response => {
+                        return response.text()
+                    })
+                    .then(result => {
+                        //Шаг 3. Получение ответа от сервира, показ пользователю
+                        document.querySelector('.result').innerHTML = text;
+                    });
+
+            }
+
+        </script>
+
+    </head>
+            <body>
+                <form action=" " method="post">
+                    <input class="pole" type="text" name="val1" placeholder="0">
+                    <input class="pole" type="text" name="val2" placeholder="0">
+                    <hr>
+                    <button class = "sos" onclick="gamk(event)" name="plus"> + </button>
+                    <button class = "sos" onclick="gamk(event)" name="minus"> - </button>
+                    <button class = "sos" onclick="gamk(event)" name="ym"> * </button>
+                    <button class = "sos" onclick="gamk(event)" name="del"> / </button>
+                </form>
+            <div class = "result">
+
+
+            </div>
+
+            </body>
+
+</html>

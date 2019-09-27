@@ -6,26 +6,19 @@
 		<script src = '1,2.js'> </script>
 </head>
 		<body>
-			<form name="formElem" action="" method="post">
-				<p>число1:<input type="text" name="n1"></p><br>
-				<p>число2:<input type="text" name="n2"></p><br>
+			<form name="form">
+				<input type="text"name="n1" placeholder="введите число 1">
+				<input type="text"name="n2" placeholder="введите число 2">
+				<hr>
+			</form>
+				<button onclick="click1(event)" name="plus"> + </button>
+				<button onclick="click(event)" name="minus"> - </button>
+				<button onclick="click(event)" name="ymn"> * </button>
+				<button onclick="click(event)" name="del"> / </button>
 
-
-
-				<button onclick="plus(event)" name="plus" value="+">+</button>
-
-				<button onclick="plus(event)" name="btnminus" value="-">-</button>
-
-				<button onclick="plus(event)"  name="ymn" value="*">*</button>
-
-				<button onclick="plus(event)" name="del" value="/">/</button>
-
-
-
-            </form>
-
-			<hr>
-				<p id="out" name="pole">ответ:</p>
+		<div id="result">
+			ответ
+		</div>
 
 		</body>
 
