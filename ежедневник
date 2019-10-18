@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <title>Notebook</title>
+        <script src="script.js" defer=""></script>
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+
+</head>
+
+<body>
+    <center>
+        <div class="div">
+            <b><strong>Super notebook</strong></b>
+        </div>
+        <br><br>
+    </center>
+
+    <form name="form" method="" action="">
+        <center>
+        <input type="text" class = "pass" name="n1" placeholder="имя пользователя">
+            <br><br>
+        <input type="password" class = "pass" name="n3" placeholder="пароль">
+            <br><br>
+        <input type="password" class = "pass" name="n4" placeholder="подтвердите пароль">
+            <br><br>
+        <input type="text" class = "pass" name="n5" placeholder="email">
+            <br><br>
+        <button type="text" class = "registration" name="n2" placeholder="регистрация" >Register </button>
+
+        </center>
+
+    </form>
+
+</body>
+
+</html>
