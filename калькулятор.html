@@ -4,22 +4,28 @@
 		<meta charset="UTF-8">
 		<title>Document</title>
 		<script src = '1,2.js'> </script>
-</head>
+	</head>
 		<body>
 			<form name="form">
 				<input type="text"name="n1" placeholder="введите число 1">
-				<input type="text"name="n2" placeholder="введите число 2">
-				<hr>
-			</form>
-				<button onclick="click1(event)" name="plus"> + </button>
-				<button onclick="click(event)" name="minus"> - </button>
-				<button onclick="click(event)" name="ymn"> * </button>
-				<button onclick="click(event)" name="del"> / </button>
 
+				<input type="text"name="n2" placeholder="введите число 2">
+
+				<hr>
+
+				<input type="submit" onclick="sum(event)" name="plus" value="+">
+
+				<input type="submit" onclick="minus(event)" name="min" value="-">
+
+				<input type="submit" onclick="ymogit(event)" name="ym" value="*">
+
+				<input type="submit" onclick="delet(event)" name="del" value="/">
+
+			</form>
 		<div id="result">
 			ответ
 		</div>
 
 		</body>
 
-</html> 
+</html>

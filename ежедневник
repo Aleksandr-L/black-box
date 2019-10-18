@@ -10,23 +10,23 @@
 
 <body>
     <center>
-        <div class="div">
-            <b><strong>Super notebook</strong></b>
+        <div class="header">
+            <p>Super notebook</p>
         </div>
         <br><br>
     </center>
 
-    <form name="form" method="" action="">
+    <form name="form" method="post" action="">
         <center>
-        <input type="text" class = "pass" name="n1" placeholder="имя пользователя">
+        <input type="text" class = "pass" name="login" placeholder="имя пользователя">
             <br><br>
-        <input type="password" class = "pass" name="n3" placeholder="пароль">
+        <input type="password" class = "pass" name="password" placeholder="пароль">
             <br><br>
-        <input type="password" class = "pass" name="n4" placeholder="подтвердите пароль">
+        <input type="password" class = "pass" name="confirm" placeholder="подтвердите пароль">
             <br><br>
         <input type="text" class = "pass" name="n5" placeholder="email">
             <br><br>
-        <button type="text" class = "registration" name="n2" placeholder="регистрация" >Register </button>
+        <button type="submit" class = "registration" name="n2" placeholder="регистрация" >Register</button>
 
         </center>
 

@@ -1,4 +1,4 @@
-function click1(event) {
+function sum(event) {
      event.preventDefault()
     // var num1 = document.getElementById('n1').value;
     // var num2 = document.getElementById('n2').value;
@@ -8,97 +8,56 @@ function click1(event) {
     //     document.getElementById('result').innerHTML = result;}
 
 //шаг 1. Отправка  на сервер к файлу calc.php
-
+    var request =  new FormData(document.forms[0]);
+    request.append("name","plus");//  положили из input.
    fetch("calc.php", {
         method: 'POST',
-        body: new FormData(document.forms[0])
+        body: request
     })
         .then(response => response.text())
         .then(result => {
-            //Шаг 3. Получение ответа от сервира, показ пользователю
+ //Шаг 3. Получение ответа от сервира, показ пользователю
          document.getElementById('result').innerHTML = result;
         });
  }
 
-// function btnminus(event) {
-//     event.preventDefault();
-//     //  var num1 = document.getElementById('n1').value;
-//     //  var num2 = document.getElementById('n2').value;
-//     //      num2 = parseInt(num2);
-//     //      num1 = parseInt(num1);
-//     //  var result = num1 + num2;
-//     //      document.getElementById('out').innerHTML = result;
-// //шаг 1. Отправка  на сервер к файлу calc.php
-// //
-//     fetch("calculyator.php", {
-//         method: 'POST',
-//         body: new FormData(document.forms[0])
-//     })
-//         .then(response => response.text())
-//         .then(result => {
-//             //Шаг 3. Получение ответа от сервира, показ пользователю
-//             document.getElementById('out').innerHTML = result;
-//         });
-//
-// };
-//
-//
-// function btnminus(event){
-//     event.preventDefault();
-// //     // var num1,num2,result;
-// //     // num1 = document.getElementById('n1').value;
-// //     // num2 = document.getElementById('n2').value;
-// //     // num2 = parseInt(num2);
-// //     // num1 = parseInt(num1);
-// //     // result = num1 - num2;
-//     fetch("/calc.php", {
-//         method: 'POST',
-//         body: new FormData(document.forms[0])
-//     })
-//         .then(response => response.text())
-//         .then(result => {
-//             //Шаг 3. Получение ответа от сервира, показ пользователю
-//             document.querySelector('result').innerHTML = result;
-//         });
-// };
-// function btnmult(event){
-//     event.preventDefault();
-//     // var num1,num2,result;
-//     // num1 = document.getElementById('n1').value;
-//     // num2 = document.getElementById('n2').value;
-//     // num2 = parseInt(num2);
-//     // num1 = parseInt(num1);
-//     // result = num1 * num2;
-//     fetch("/calc.php", {
-//         method: 'POST',
-//         body: new FormData(document.forms[0])
-//     })
-//         .then(response => response.text())
-//         .then(result => {
-//             //Шаг 3. Получение ответа от сервира, показ пользователю
-//             document.getElementById('out').innerHTML = result;
-//         })
-//
-// }
-// function btndel(event) {
-//     event.preventDefault();
-//     // var num1, num2, result;
-//     // num1 = document.getElementById('n1').value;
-//     // num2 = document.getElementById('n2').value;
-//     // num2 = parseInt(num2);
-//     // num1 = parseInt(num1);
-//     // result = num1 / num2;
-//     fetch("/calc.php", {
-//         method: 'POST',
-//         body: new FormData(document.forms[0])
-//     })
-//         .then(response => response.text())
-//         .then(result => {
-//             //Шаг 3. Получение ответа от сервира, показ пользователю
-//             document.getElementById('out').innerHTML = result;
-//         })
-// }
-// function f() {
-//     var nd = document.getElementsByTagName("div").value
-//
-// };
+function minus(event) {
+    event.preventDefault();
+    var request =  new FormData(document.forms[0]);
+    request.append("name","minus");//  положили из input.
+    fetch("calc.php", {
+        method: 'POST',
+        body: request
+    })
+        .then(response => response.text())
+        .then(result => {
+            document.getElementById('result').innerHTML = result;
+        });
+}
+
+function ymogit(event) {
+    event.preventDefault()
+    var request =  new FormData(document.forms[0]);
+    request.append("name","ymogit");//  положили из input.
+    fetch("calc.php", {
+        method: 'POST',
+        body: request
+    })
+        .then(response => response.text())
+        .then(result => {
+            document.getElementById('result').innerHTML = result;
+        });
+}
+function delet(event) {
+    event.preventDefault()
+    var request =  new FormData(document.forms[0]);
+    request.append("name","delet");//  положили из input.
+    fetch("calc.php", {
+        method: 'POST',
+        body: request
+    })
+        .then(response => response.text())
+        .then(result => {
+            document.getElementById('result').innerHTML = result;
+        });
+}
