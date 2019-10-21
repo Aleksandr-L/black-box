@@ -1,36 +1,36 @@
-<!doctype html>
+<!--doctype html-->
 <html lang="en">
 <head>
         <meta charset="UTF-8">
         <title>Notebook</title>
         <script src="script.js" defer=""></script>
-        <link rel="stylesheet" href="style.css" type="text/css"/>
+      <!--  <link rel="stylesheet" href="style.css" type="text/css"/>-->
 
 </head>
 
 <body>
-    <center>
+   <!-- <center>
         <div class="header">
             <p>Super notebook</p>
         </div>
         <br><br>
-    </center>
+    <center>
+-->
+<!--    <form name="form" method="" action="">-->
+<!--        <center>-->
+<!--        <input type="text" class = "pass" name="login" placeholder="имя пользователя">-->
+<!--            <br><br>-->
+<!--        <input type="password" class = "pass" name="password" placeholder="пароль">-->
+<!--            <br><br>-->
+<!--        <input type="password" class = "pass" name="confirm" placeholder="подтвердите пароль">-->
+<!--            <br><br>-->
+<!--        <input type="text" class = "pass" name="" placeholder="email">-->
+<!--            <br><br>-->
+<!--        <button type="text" class = "registration" name="n2" placeholder="регистрация" >Register</button>-->
 
-    <form name="form" method="post" action="">
-        <center>
-        <input type="text" class = "pass" name="login" placeholder="имя пользователя">
-            <br><br>
-        <input type="password" class = "pass" name="password" placeholder="пароль">
-            <br><br>
-        <input type="password" class = "pass" name="confirm" placeholder="подтвердите пароль">
-            <br><br>
-        <input type="text" class = "pass" name="n5" placeholder="email">
-            <br><br>
-        <button type="submit" class = "registration" name="n2" placeholder="регистрация" >Register</button>
+ <!--       </center>-->
 
-        </center>
-
-    </form>
+   <!-- </form>-->
 
 </body>
 
