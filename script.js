@@ -9,7 +9,7 @@
     let form = document.createElement("form");//форма
     document.body.appendChild(form);
     form.className = "form1";
-    form.action = "";
+    form.action = "registr.php";
     form.method = "POST";
 
     let div1 = document.createElement("div");//для чего див
@@ -58,7 +58,7 @@
 
     let pole4 = document.createElement("input");   //поле ввода №4
     document.body.appendChild(pole4);
-    pole4.name = "mail";
+    pole4.name = "email";
     pole4.placeholder ="email";
     pole4.className = "pass";
     document.querySelector(".form1").append(pole4);
@@ -76,3 +76,18 @@
     document.querySelector(".form1").append(buttonRegistration);
     buttonRegistration.type = "submit";
 
+
+    /*function sum(event) {
+        event.preventDefault()
+    /*var request =  new FormData(document.forms[0]);
+    request.append("name","plus");//  положили из input.
+    fetch("registr.php", {
+        method: 'POST',
+        body: request
+    })
+        .then(response => response.text())
+        .then(result => {
+            //Шаг 3. Получение ответа от сервира, показ пользователю
+            document.getElementById('result').innerHTML = result;
+        });
+    }*/
