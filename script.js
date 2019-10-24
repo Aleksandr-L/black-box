@@ -20,7 +20,6 @@
     document.querySelector(".form1").append(div1);
 
     let spaceL = document.createElement("br");     //пробелы заменить в Css
-    document.body.appendChild(spaceL);
     document.querySelector(".form1").append(spaceL);
 
     let pole1 = document.createElement("input");  //поле ввода №1
@@ -31,7 +30,6 @@
     document.querySelector(".form1").append(pole1);
 
     let spacel = document.createElement("br");
-    document.body.appendChild(spacel);
     document.querySelector(".form1").append(spacel);
 
     let pole2 = document.createElement("input");  //поле ввода №2
@@ -42,7 +40,6 @@
     document.querySelector(".form1").append(pole2);
 
     let space1 = document.createElement("br");
-    document.body.appendChild(space1);
     document.querySelector(".form1").append(space1);
 
     let pole3 = document.createElement("input");  //поле ввода №3
@@ -53,7 +50,6 @@
     document.querySelector(".form1").append(pole3);
 
     let space2 = document.createElement("br");
-    document.body.appendChild(space2);
     document.querySelector(".form1").append(space2);
 
     let pole4 = document.createElement("input");   //поле ввода №4
@@ -64,7 +60,6 @@
     document.querySelector(".form1").append(pole4);
 
     let space3 = document.createElement("br");
-    document.body.appendChild(space3);
     document.querySelector(".form1").append(space3);
 
     let buttonRegistration = document.createElement("button"); //поле кнопки
@@ -75,8 +70,6 @@
     buttonRegistration.textContent = "Register";
     document.querySelector(".form1").append(buttonRegistration);
     buttonRegistration.type = "submit";
-
-
     /*function sum(event) {
         event.preventDefault()
     /*var request =  new FormData(document.forms[0]);

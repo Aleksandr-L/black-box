@@ -1,5 +1,5 @@
 <?php
-//session_start();
+session_start();
 //$_SESSION () ;
 
 $login = filter_var (trim($_POST["login"]),
@@ -25,4 +25,3 @@ mysqli_query($connection, "INSERT INTO `notebook` (`username`, `password`, `emai
 //$mysql = close();
 
 ?>
-
