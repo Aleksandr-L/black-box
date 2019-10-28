@@ -1,13 +1,15 @@
 .registration{
+    text-align: center;
     width: 200px; /* Ширина элемента в пикселах */
     padding: 10px; /* Поля вокруг текста */
     background: blue; /* Цвет фона */
     border-radius: 10px 10px;
     margin: 20px;
+
 }
 
 .pass{
-    center: auto;
+    text-align: center;
     width: 200px;
     padding: 10px; /* Поля вокруг текста */
     margin: 10px;
@@ -24,5 +26,19 @@
 
 .form1 {
     text-align: center;
-    margin: 20px;
+    margin: 10px;
 }
+.box{
+    text-align: center;
+    width: 5px;
+    margin: 5px;
+    padding: 5px;
+    flex-basis: 200px;
+}
+.flex-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: revert;
+}
+

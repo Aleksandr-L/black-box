@@ -4,7 +4,14 @@
         <meta charset="UTF-8">
         <title>Notebook</title>
         <script src="script.js" defer=""></script>
-       <!-- <link rel="stylesheet" href="style.css" type="text/css"/>-->
+        <script src="poleLogin.js" defer=""></script>
+        <script src="polePassword.js" defer=""></script>
+        <script src="poleConfirm.js" defer=""></script>
+        <script src="poleEmail.js" defer=""></script>
+        <script src="buttonRegistr.js" defer=""></script>
+        <script src="notebook.js" defer=""></script>
+<!--        <script src="vse.js" defer=""></script>-->
+        <link rel="stylesheet" href="style.css" type="text/css"/>
 
 </head>
 
