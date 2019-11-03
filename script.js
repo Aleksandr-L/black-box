@@ -14,13 +14,17 @@ function actionFunc() {
     }
 
     function registr(event) {
-        event.preventDefault()
+        event.preventDefault();
     let request =  new FormData(document.forms[0]);
     fetch("registr.php", {
         method: 'POST',
         body: request
     })
         .then(response => response.text())
-        .then(result => {window.location.href = "registr.php";
+        .then(result => {
+            if (result == "" ) {
+                window.location.href = "login.php";
+            }
+            else { document.body.append(result)};
         });
     }
