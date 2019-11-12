@@ -1,7 +1,7 @@
 <?php
 ini_set("display_errors", 1);
  //Включить вывод уведомлений и предупреждений можно, добавив в начало нужного .php файла
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 //Задает, какие ошибки PHP попадут в отчет
 session_start();
 //$_SESSION () ;*/
@@ -15,7 +15,7 @@ $email = $_POST["email"];
     //условия отправки данных
     if(mb_strlen($login) < 5 || mb_strlen($login) > 15){
     //mb_strlen - Получает длину строки вводимую пользователем в поле $login
-      echo "fuck you many characters in login";
+      //echo "fuck you many characters in login";
    // exit — Вывести сообщение и прекратить выполнение текущего скрипта при не собдюдении условий
       exit();
     }

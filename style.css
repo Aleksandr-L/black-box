@@ -9,10 +9,11 @@
 }
 
 .pass{
-    text-align: center;
+
     width: 200px;
     padding: 10px; /* Поля вокруг текста */
     margin: 10px;
+    text-align: center;
 }
 
 .header {
@@ -29,16 +30,23 @@
     margin: 10px;
 }
 .box{
-    text-align: center;
     width: 5px;
     margin: 5px;
     padding: 5px;
     flex-basis: 200px;
+    text-align: center;
 }
 .flex-container {
     text-align: center;
     display: flex;
     flex-direction: column-reverse;
     flex-wrap: revert;
+}
+.blok {
+    font-size: 5px;
+    width: 100%;
+    padding: 1px;
+    margin: auto;
+    text-align: center;
 }
 
