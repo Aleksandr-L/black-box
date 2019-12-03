@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css" type="text/css"/>
+    <script src="addButton.js" defer = ""></script>
+    <title>Записи</title>
+</head>
+<body>
+<form action="" method="POST" >
+    <div class ="header">Ежедневник</div>
+
+    <div class="block-left">
+        <div> <br>
+            <input type="search" id = "out" name="users" placeholder="Search" class="search" autocomplete="off">
+        </div><br><br>
+            <button type = "button" class="note" id="byt">Add new note</button>
+    </div>
+
+    <div class="block-right">Edit mode<hr>
+
+        <input type="text" name="users"  placeholder = "" class = "block_right"><br><br>
+
+        <input type="date" name="days"  placeholder = "" class = "block_right"><br><br>
+
+        <textarea class="block_right2" name="textarea"></textarea>
+
+        <div>
+            <h><button type="submit" class="save" name ="registr" >Save</button></h>
+        </div>
+
+    </div>
+
+</form>
+<div><footer class="footer">Copyright by ..., 2019</footer></div>
+</body>
+</html>
