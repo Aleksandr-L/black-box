@@ -15,26 +15,34 @@
 <form method="POST">
     <div class="block-left">
         <div> <br>
-            <input type="search" id = "out" name="users2" placeholder="Search" class="search" autocomplete="off">
+            <div class="Search">
+                <input type="search" id = "out" name="users2" placeholder="Search" class="search" autocomplete="off">
+                <img src="https://image.flaticon.com/icons/svg/49/49116.svg" alt="" class="search-icon">
+
+            </div>
         </div><br><br>
-            <button type = "button" class="note" id="byt">Add new note</button>
+        <div id="data" class="display" >
+
+        </div>
+        <br><br>
+<!--        <a href=delete.php?id=".$row['id'].">Удалить</a>-->
+        <button type = "button" class="note" id="byt" >Add new note</button>
     </div>
-    <div id="data"> </div>
+
 
     <div class="block-right">Edit mode<hr>
+        <div class="search-field"></div>
+<!--        <input type="text" name="users"  placeholder = "" class = "block_right"><br><br>-->
 
-        <input type="text" name="users"  placeholder = "" class = "block_right"><br><br>
+<!--        <input type="date" name="days"   placeholder = "" class = "block_right"><br><br>-->
 
-        <input type="date" name="days"  placeholder = "" class = "block_right"><br><br>
+<!--        <textarea class="block_right2" name="textarea"></textarea>-->
 
-        <textarea class="block_right2" name="textarea"></textarea>
-
-        <div>
-             <h><input type="button" class="save" name ="registr" value="save"/> </h>
-        </div>
+<!--        <div>-->
+<!--             <h><input type="button" class="save" name ="registr" value="save"/></h>-->
+<!--        </div>-->
 
     </div>
-
 </form>
 <div><footer class="footer">Copyright by ..., 2019</footer></div>
 </body>
