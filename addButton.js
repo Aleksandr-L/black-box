@@ -6,18 +6,22 @@ let div2 = document.querySelector(".block-right");
 let blockRight = document.querySelector(".search-field");
 let dataDiv = document.getElementById("data");
 let entrys = [];
+let editedEntry;
 let par = document.querySelector(".entry");
 let inputUsers = document.querySelector(".input");
-
-
+requestAllEntries(); //показывает записи при первоначальной загрузке
+let button_change = document.querySelector('.change');
 
 AddNewNote.onclick = ()=> {
+    // showEditContainer();
     blockRight.innerHTML= '';
+
     let inputUsers = document.createElement("input");
     blockRight.appendChild(inputUsers);
     inputUsers.className ="block_right";
     inputUsers.name = "users";
     inputUsers.type = "text";
+    inputUsers.id = "inp1";
 
     let space = document.createElement("br");
     inputUsers.after(space);
@@ -29,7 +33,7 @@ AddNewNote.onclick = ()=> {
     inputUsers2.className ="block_right";
     inputUsers2.name = "days";
     inputUsers2.type = "date";
-
+    inputUsers2.id = "inp2";
 
     let space3 = document.createElement("br");
     inputUsers2.after(space3);
@@ -41,6 +45,7 @@ AddNewNote.onclick = ()=> {
     inputUsers3.className ="block_right2";
     inputUsers3.name = "textarea";
     inputUsers3.type = "text";
+    inputUsers3.id = "inp3";
 
     let button_save = document.createElement("input");
     blockRight.appendChild(button_save);
@@ -48,33 +53,27 @@ AddNewNote.onclick = ()=> {
     button_save.name = "registr";
     button_save.type = "button";
     button_save.value = "save";
-
-
-
-
-
-
-    requestAllEntries();// срабатывает при первоначальной загрузки
-
     button_save.onclick = function (event) {
         //event.preventDefault();
-        addEntry();
+        addEntry();// отображает данные на страницу влевой части
         setTimeout(requestAllEntries, 500);// после добавления записи обновляем список
-
     };
-    document.getElementById("data").addEventListener("click", onClickEntry);
-
+        document.getElementById("data").addEventListener("click", onClickEntry);// при нажатии на запись переходит в правый блок
 };
 
-function onClickEntry(event) {
-    const focusedEntry = entrys.filter((el) => el.id === event.target.id)[0];//тут массив entrys фильтром перебираем el
+function onClickEntry(event) {//по нажатию на запись выводим ее в правый блок
+    const focusedEntry = getFocusedEntry(event.target.id);//тут массив entrys фильтром перебираем el event.target -это исходный элемент, на котором произошло событие
     blockRight.id = focusedEntry.id;//по id и (event.target.id) сравниваем с id в бд на что нажали мышкой
-    blockRight.className = "focusedEntry";
+    blockRight.className = "focusedEntry";// класс в scc
     blockRight.innerHTML = focusedEntry.user; //  вправый блок ложим то что получили из массива
 
-}
+  };
 
-function requestAllEntries() {
+function getFocusedEntry(id) {//фильтрует и возвращает массив, присваивает id
+    return entrys.filter((el) => el.id === id)[0];//используется для фильтрации массива через функцию.
+};
+
+function requestAllEntries() {//принимает  данные из фукции addEntry и обрабатывает
 
     fetch("planner_Get.php", {
         method: 'POST'
@@ -83,31 +82,99 @@ function requestAllEntries() {
         .then(result =>{
             if (Array.isArray(result)) {// проверка что массив это массив
                 dataDiv.innerText = '';
-                entrys = result; // в массив записей положили результат из бд
-                result.forEach((entry) => {
+                let entrys = result; // в массив записей положили результат из бд
+                result.forEach((entrys) => {// перебираем массив
                     const divElement = document.createElement("div");
-                    divElement.id = entry.id; //диву присвоили id элемента из бд
-                    //добавить ссылку
+                    divElement.id = entrys.id; //диву присвоили id элемента из бд
                     divElement.className = "entry";
-                    divElement.innerHTML = entry.user;
+                    divElement.innerHTML = entrys.user;
                     // divElement.onclick = onClickEntry(event);
                     dataDiv.appendChild(divElement);
+
                     let paragraph = document.createElement('a');
-                    paragraph.href= "delete.php";
+                    paragraph.href= "delete.php?id="+entrys.id;//добавляем индентификатор к строке
                     paragraph.className = "entry";
-                    //paragraph.insertBefore("a");
                     paragraph.name = "удалить";
                     paragraph.innerHTML = "&Chi;";
                     divElement.appendChild(paragraph);
-                    // let space3 = document.createElement("br");
-                    // paragraph.prepend(space3);
 
+                    let space12 = document.createElement("br");
+                    paragraph.after(space12);
+                    let space222 = document.createElement("br");
+                    paragraph.after(space222);
+
+                    let paragraph2 = document.createElement('a');
+                    paragraph2.id = entrys.id;
+                    paragraph2.href= "#"+entrys.id;//добавляем индентификатор к строке
+                    paragraph2.className = "block_right ";
+                    paragraph2.name = "изменить";
+                    paragraph2.innerHTML = "изменить";
+                    divElement.appendChild(paragraph2);
                 });
             }
         });
-}
 
-function addEntry() {
+let paragraph2 = document.createElement('a');
+    paragraph2.onclick = function handleClickEditEntry(ev) {//по нажатию на запись обработать и изменить
+
+        const focusedEntry = getFocusedEntry(ev.target.id);// беру элемент полученный в функции getFocusedEntry  наважусь на id
+    console.warn("focusedEntry", focusedEntry);
+    // showEditContainer(focusedEntry);
+    //editedEntry = focusedEntry;
+     blockRight.innerHTML= '';
+
+     let inputUsers = document.createElement("input");
+    blockRight.appendChild(inputUsers);
+    inputUsers.className ="block_right";
+    inputUsers.name = "users";
+    inputUsers.type = "text";
+    inputUsers.id = "inp1";
+
+    let space = document.createElement("br");
+    inputUsers.after(space);
+
+    let space2 = document.createElement("br");
+    inputUsers.after(space2);
+
+
+    let inputUsers2 = document.createElement("input");
+    blockRight.appendChild(inputUsers2);
+    inputUsers2.className ="block_right";
+    inputUsers2.name = "days";
+    inputUsers2.type = "date";
+    inputUsers2.id = "inp2";
+
+    let space3 = document.createElement("br");
+    inputUsers2.after(space3);
+    let space23 = document.createElement("br");
+    inputUsers2.after(space23);
+
+    let inputUsers3 = document.createElement("input");
+    blockRight.appendChild(inputUsers3);
+    inputUsers3.className ="block_right2";
+    inputUsers3.name = "textarea";
+    inputUsers3.type = "text";
+    inputUsers3.id = "inp3";
+    let button_save = document.createElement("input");
+    blockRight.appendChild(button_save);
+    button_save.className ="save";
+    button_save.name = "registr";
+    button_save.type = "button";
+    button_save.value = "save";
+
+// requestAllEntries();// срабатывает при первоначальной загрузки
+
+    button_save.onclick = function (event) {
+        //event.preventDefault();
+        addEntry();// отображает данные на страницу влевой части когда нажимаешь на запись в правой части
+        setTimeout(requestAllEntries, 500);// после добавления записи обновляем список в левой части
+        // addEntry2();
+    };
+    document.getElementById("data").addEventListener("click", onClickEntry);
+};
+};
+
+function addEntry() { //выполняет запрос в бд отдали в функцию requestAllEntries массив
     let request =  new FormData(document.forms[0]);
     fetch("planner.php", {
         method: 'POST',
@@ -116,73 +183,9 @@ function addEntry() {
         .then(response => response.json())
         .then(result =>{
             console.warn(result);
-            if (result == "" ) {
-                window.location.href = "planner_Get.php";
+            if (result === "" ) {
+                requestAllEntries();
             }
             else { document.body.append(result)};
         });
 }
-
-    // var paragraph = document.querySelector('.display'),
-    // var text = paragraph.querySelector('.text');
-    //
-    //  text = paragraph.dataset.link;
-    //
-    // var a = document.createElement('a');
-    //
-    // var a.href = link;
-    //
-    // var oldChild = paragraph.removeChild(text);
-    //
-    // paragraph.insertBefore(a, paragraph.firstChild);
-    //
-    // a.innerHTML = oldChild.outerHTML;
-
-
-// function chpok2(){
-// }
-// button_save.onclick = function (event) {
-//     //event.preventDefault();
-//     let request =  new FormData(document.forms[0]);
-//     fetch("planner_Get.php", {
-//         method: 'POST',
-//         body: request
-//     })
-//         .then(response => response.text())
-//         .then(result =>chpok2())
-//         // let button_two = document.createElement("div");
-//         // div.appendChild(button_two);
-//         // button_two.className = "block-left";
-//         //  button_two.innerHTML = chpok2(alert("hi"));
-// };
-// function registr(event) {
-//  //        event.preventDefault();
-//     let request =  new FormData(document.forms[0]);
-//     fetch("planner_Get.php", {
-//         method: 'POST',
-//         body: request
-//     })
-//         .then(response => response.text())
-//         .then(result => {registr(result)
-//          document.getElementById("data").innerHTML = result;
-//
-//         let button_two = document.createElement("div");
-//         div.appendChild(button_two);
-//
-//         });
-//     }
-// function add_title(data) {
-//     let button_two = document.createElement("div");
-//     div.appendChild(button_two);
-//     document.querySelector(".note");
-//     button_two.innerHTML = data;
-//     button_two.className = "class_1 ";
-//     let space = document.createElement("br");
-//     div.appendChild(space);
-// };
-//add_title(request.get("users2"));
-// }
-
-
-
-

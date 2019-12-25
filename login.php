@@ -36,7 +36,6 @@ header("Location: ежедневник");}
 
 //header("Location: login.php");
 
-
 ?>
 <!doctype html>
     <html lang="en">
