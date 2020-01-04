@@ -9,7 +9,8 @@ $query = mysqli_query($link, "SELECT * FROM `daily_planner`") or die(mysqli_erro
 while ($row = mysqli_fetch_array($query, MYSQL_BOTH)) {
          // echo "<hr><br> $row[id]";
           //echo "<br> $row[users]";
-          $arr[] = ["id" => $row["id"], "user" => $row["users"]];
+          $arr[] = ["id" => $row["id"], "user" => $row["users"], "days" => $row["days"], "textarea" => $row["textarea"]];
+
     }
     //$row = mysqli_fetch_array($query, MYSQL_BOTH);
     //echo '<pre>' . print_r($row, 1) . '</pre>';

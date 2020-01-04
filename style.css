@@ -164,3 +164,7 @@ display{
     height: 20px; /*высота строки ввода*/
     font-size: 13px; /*размер шрифта*/
 }
+.entry {
+content:"&Chi;";
+
+}
