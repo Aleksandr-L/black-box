@@ -10,8 +10,10 @@ let editedEntry;
 let par = document.querySelector(".entry");
 let inputUsers = document.querySelector(".input");
 requestAllEntries(); //показывает записи при первоначальной загрузке
-let button_change = document.querySelector('.change');
+let buttonСhange = document.querySelector('.change');
 let paragraph2 = document.querySelector('.block_right');
+let pot;
+
 
 const tasks = new Map();
 let currentTask;
@@ -49,14 +51,14 @@ AddNewNote.onclick = ()=> {
     inputUsers3.name = "textarea";
     inputUsers3.type = "text";
     inputUsers3.id = "inp3";
-
-    let button_save = document.createElement("input");
-    blockRight.appendChild(button_save);
-    button_save.className ="save";
-    button_save.name = "registr";
-    button_save.type = "button";
-    button_save.value = "save";
-    button_save.onclick = function (event) {
+    //добавить поле hidden
+    let buttonСhange = document.createElement("input");
+    blockRight.appendChild(buttonСhange);
+    buttonСhange.className ="save";
+    buttonСhange.name = "registr";
+    buttonСhange.type = "button";
+    buttonСhange.value = "save";
+    buttonСhange.onclick = function (event) {
         //event.preventDefault();
         addEntry();// отображает данные на страницу влевой части
         setTimeout(requestAllEntries, 500);// после добавления записи обновляем список
@@ -64,9 +66,8 @@ AddNewNote.onclick = ()=> {
         document.getElementById("data").addEventListener("click", onClickEntry);// при нажатии на запись переходит в правый блок
 };
 
-
 function getFocusedEntry(id) {//фильтрует и возвращает массив, присваивает id
-    return entry.filter((el) => el.id === id)[0];//используется для фильтрации массива через функцию.
+    return tasks.filter((el) => el.id === id)[0];//используется для фильтрации массива через функцию.
 };
 
 function requestAllEntries() {//принимает  данные из фукции addEntry и обрабатывает
@@ -82,7 +83,6 @@ function requestAllEntries() {//принимает  данные из фукци
                 result.forEach(task => {
                    tasks.set(task.id, task);
                 });
-                console.log(tasks);
                 // entry = result;// в массив записей положили результат из бд
                 tasks.forEach((task) => {// перебираем массив
                     const divElement = document.createElement("div");
@@ -91,6 +91,7 @@ function requestAllEntries() {//принимает  данные из фукци
                     divElement.innerHTML = task.user;
                     // divElement.onclick = onClickEntry(event);
                     dataDiv.appendChild(divElement);
+
                     let paragraph = document.createElement('a');
                     paragraph.href = "delete.php?id=" + task.id;//добавляем индентификатор к строке
                     paragraph.className = "entry";
@@ -98,27 +99,31 @@ function requestAllEntries() {//принимает  данные из фукци
                     paragraph.innerHTML = "&Chi;";
                     divElement.append(paragraph);
 
-                    let space = document.createElement("br");
-                    paragraph.after(space);
+                    // let space = document.createElement("br");
+                    // paragraph.after(space);
 
                     let paragraph2 = document.createElement('a');
-                    paragraph2.href = "changes.php?id=" + task.id;//аяксом сделать запрос
+                   // paragraph2.action ="changes.php";
+                   // paragraph2.method ="POST";
+                    paragraph2.onclick = addChanges;
                     paragraph2.className = "entry";
                     paragraph2.name = "изменить";
                     paragraph2.innerHTML = "изменить";
                     divElement.append(paragraph2);
-
-
+                    function addChanges() { //выполняет запрос в бд отдали в функцию requestAllEntries массив
+                        let request =  new FormData(document.forms[0]);
+                        fetch("changes.php", {
+                            method: 'POST',
+                            body: request
+                        })
+                            .then(response => response.json())
+                            .then(result);
+                      alert( console.log(result));
+                        }
                     });
-            }
-        }).catch(response => {
-           // console.error();
-        });
-}
-
-
-
-
+                 }
+            })
+        }
 function addEntry() { //выполняет запрос в бд отдали в функцию requestAllEntries массив
     let request =  new FormData(document.forms[0]);
     fetch("planner.php", {
@@ -126,17 +131,13 @@ function addEntry() { //выполняет запрос в бд отдали в 
         body: request
     })
         .then(response => response.json())
-        .then(result =>{
-            console.log(result);
-            if (result === "" ) {
-                requestAllEntries();
-            }
-            else { document.body.append(result)};
-        });
-}
+    // .then(result);
+    // requestAllEntries()
+    };
+
 function onClickEntry(event) {//по нажатию на запись выводим ее в правый блок
     currentTask = tasks.get(event.target.id);
-    console.log(currentTask);
+    console.log(tasks);
     let userInput = document.getElementById('inp1');
     console.log(userInput);
     userInput.value = currentTask.user;
@@ -150,16 +151,3 @@ function onClickEntry(event) {//по нажатию на запись вывод
     // blockRight.className = "focusedEntry";// класс в scc
     // blockRight.innerHTML = focusedEntry.user; //  вправый блок ложим то что получили из массива
 };
-// function addEntry2() { //выполняет запрос в бд отдали в функцию requestAllEntries массив
-//     let request =  new FormData(document.forms[0]);
-//     fetch("planner.php", {
-//         method: 'PUT',
-//         body: request
-//     })
-//         .then(response => response.json())
-//         .then(result =>{
-//             console.log(result);
-//
-//
-//         });
-// }

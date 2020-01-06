@@ -1,27 +1,19 @@
 <?php
 session_start();
- //ini_set("display_errors", 1);
+//ini_set("display_errors", 1);
  //zerror_reporting(E_ALL);
 header("Content-type: text/html; charset=utf-8");
  $users    = $_REQUEST["users"];
  $days     = $_REQUEST["days"];
  $textarea = $_REQUEST["textarea"];
+ $id = $_REQUEST ["id"];
 
-$link = mysqli_connect("localhost", "root", "", "notebook")or die("Ошибка " . mysqli_error($link));
-// если запрос POST
-if(isset($_POST['users']) && isset($_POST['days']) && isset($_POST['textarea']) ){
-    $query ="UPDATE `daily_planner` SET name='$users', days='$days', textarea='$textarea' WHERE id = ".$_REQUEST["id"];
-    $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
+$link = mysqli_connect("localhost", "root", "", "notebook")or die("Ошибка мля ");
+mysqli_query($link,"UPDATE `daily_planner` SET  id ='$users', days='$days', textarea ='$textarea' WHERE");
 
-}
-// если запрос GET
-if(iisset($_REQUEST['id']))
-{
-    // создание строки запроса
-    $query ="SELECT * FROM `daily_planner` WHERE id =".$_REQUEST["id"];
-    // выполняем запрос
-    $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
-    //если в запросе более нуля строк
+$link = mysqli_connect("localhost", "root", "", "notebook") or die("Ошибка бля" .mysqli_error());
+$query ="SELECT * FROM `daily_planner` WHERE id =".$_REQUEST["id"];
+$result = mysqli_query($link, $query);
     if($result && mysqli_num_rows($result)>0)
     {
         $row = mysqli_fetch_row($result); // получаем первую строку
@@ -30,12 +22,11 @@ if(iisset($_REQUEST['id']))
         $days = $row[3];
 
     }
-}
-
-
+echo"hi";
+//echo json_encode($result);
 // закрываем подключение
 
-header("Location: notes.html");
+//header("Location: update.php");
 mysqli_close($link);
 
 ?>
