@@ -134,9 +134,9 @@
     border: 0;
 }
 
-display{
-    width: 500px;
-    height: 20px;
+.displayHidden{
+    display:none;
+
 }
 
 

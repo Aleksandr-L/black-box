@@ -1,5 +1,6 @@
 <?php
 session_start();
+echo "hi";
 //ini_set("display_errors", 1);
  //zerror_reporting(E_ALL);
 header("Content-type: text/html; charset=utf-8");
@@ -9,7 +10,7 @@ header("Content-type: text/html; charset=utf-8");
  $id = $_REQUEST ["id"];
 
 $link = mysqli_connect("localhost", "root", "", "notebook")or die("Ошибка мля ");
-mysqli_query($link,"UPDATE `daily_planner` SET  id ='$users', days='$days', textarea ='$textarea' WHERE");
+mysqli_query($link,"UPDATE `daily_planner` SET  `users` ='$users', `days`='$days', `textarea` ='$textarea' WHERE");
 
 $link = mysqli_connect("localhost", "root", "", "notebook") or die("Ошибка бля" .mysqli_error());
 $query ="SELECT * FROM `daily_planner` WHERE id =".$_REQUEST["id"];
@@ -17,13 +18,13 @@ $result = mysqli_query($link, $query);
     if($result && mysqli_num_rows($result)>0)
     {
         $row = mysqli_fetch_row($result); // получаем первую строку
-        $users = $row[1];
-        $textarea = $row[2];
-        $days = $row[3];
+        $users = $row["users"];
+        $textarea = $row["textarea"];
+        $days = $row["days"];
 
     }
 echo"hi";
-//echo json_encode($result);
+echo json_encode($result);
 // закрываем подключение
 
 //header("Location: update.php");

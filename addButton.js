@@ -11,10 +11,10 @@ let par = document.querySelector(".entry");
 let inputUsers = document.querySelector(".input");
 requestAllEntries(); //показывает записи при первоначальной загрузке
 let buttonСhange = document.querySelector('.change');
-let paragraph2 = document.querySelector('.block_right');
+let paragraph2 = document.querySelector('.entry');
 let pot;
-
-
+let divElement = document.querySelector(".entry");
+let inputUser = document.querySelector(".displayHidden");
 const tasks = new Map();
 let currentTask;
 AddNewNote.onclick = ()=> {
@@ -51,6 +51,14 @@ AddNewNote.onclick = ()=> {
     inputUsers3.name = "textarea";
     inputUsers3.type = "text";
     inputUsers3.id = "inp3";
+
+    inputUser = document.createElement("input");
+    blockRight.appendChild(inputUser);
+    inputUser.className ="search-field";
+    inputUser.name = "hidden";
+    inputUser.type = "text";
+    inputUser.id = "inp11";
+
     //добавить поле hidden
     let buttonСhange = document.createElement("input");
     blockRight.appendChild(buttonСhange);
@@ -85,7 +93,7 @@ function requestAllEntries() {//принимает  данные из фукци
                 });
                 // entry = result;// в массив записей положили результат из бд
                 tasks.forEach((task) => {// перебираем массив
-                    const divElement = document.createElement("div");
+                    divElement = document.createElement("div");
                     divElement.id = task.id; //диву присвоили id элемента из бд
                     divElement.className = "entry";
                     divElement.innerHTML = task.user;
@@ -101,29 +109,29 @@ function requestAllEntries() {//принимает  данные из фукци
 
                     // let space = document.createElement("br");
                     // paragraph.after(space);
-
-                    let paragraph2 = document.createElement('a');
-                   // paragraph2.action ="changes.php";
-                   // paragraph2.method ="POST";
-                    paragraph2.onclick = addChanges;
+                    paragraph2 = document.createElement('a');
                     paragraph2.className = "entry";
                     paragraph2.name = "изменить";
                     paragraph2.innerHTML = "изменить";
                     divElement.append(paragraph2);
-                    function addChanges() { //выполняет запрос в бд отдали в функцию requestAllEntries массив
+                    paragraph2.id = "data";
+                    paragraph2.onclick = onClickEntry;
+                    paragraph2.onclick= function addChanges() { //выполняет запрос в бд отдали в функцию requestAllEntries массив
                         let request =  new FormData(document.forms[0]);
                         fetch("changes.php", {
                             method: 'POST',
                             body: request
                         })
                             .then(response => response.json())
-                            .then(result);
-                      alert( console.log(result));
-                        }
+                            .then(result = onClickEntry);
+                        alert( console.log(result));}
+
+
                     });
                  }
             })
         }
+
 function addEntry() { //выполняет запрос в бд отдали в функцию requestAllEntries массив
     let request =  new FormData(document.forms[0]);
     fetch("planner.php", {
@@ -134,6 +142,7 @@ function addEntry() { //выполняет запрос в бд отдали в 
     // .then(result);
     // requestAllEntries()
     };
+
 
 function onClickEntry(event) {//по нажатию на запись выводим ее в правый блок
     currentTask = tasks.get(event.target.id);
@@ -146,8 +155,11 @@ function onClickEntry(event) {//по нажатию на запись вывод
     userData.value = currentTask.days;
     let userText = document.getElementById('inp3');
     userText.value = currentTask.textarea;
-    // const focusedEntry = getFocusedEntry(event.target.id);//тут массив entrys фильтром перебираем el event.target -это исходный элемент, на котором произошло событие
-    // blockRight.id = focusedEntry.id;//по id и (event.target.id) сравниваем с id в бд на что нажали мышкой
-    // blockRight.className = "focusedEntry";// класс в scc
-    // blockRight.innerHTML = focusedEntry.user; //  вправый блок ложим то что получили из массива
 };
+
+// const focusedEntry = getFocusedEntry(event.target.id);//тут массив entrys фильтром перебираем el event.target -это исходный элемент, на котором произошло событие
+// blockRight.id = focusedEntry.id;//по id и (event.target.id) сравниваем с id в бд на что нажали мышкой
+// blockRight.className = "focusedEntry";// класс в scc
+// blockRight.innerHTML = focusedEntry.user; //  вправый блок ложим то что получили из массива
+
+
