@@ -27,13 +27,13 @@ function addChanges() {
         method: 'POST',
         body: request
     })
-        .then(response => response.json())
+        .then(response => response.text())
         .then(response => {
-            if (result == "" ) {
-                window.location.href = "chek.php";
+               // debugger
+                result = response;
+                requestAllEntries();
             }
-            else { document.body.append(result)};
-    alert(console.log(result))});};
+            )};
 AddNewNote.onclick = ()=> {
     // showEditContainer();
     blockRight.innerHTML= '';
@@ -86,8 +86,8 @@ AddNewNote.onclick = ()=> {
     buttonСhange.onclick = function (event) {
         //event.preventDefault();
         addEntry();// отображает данные на страницу влевой части
-        setTimeout(requestAllEntries, 500);// после добавления записи обновляем список
-    };
+    setTimeout(requestAllEntries, 500);// после добавления записи обновляем список
+};
         document.getElementById("data").addEventListener("click", onClickEntry);// при нажатии на запись переходит в правый блок
 };
 
@@ -186,8 +186,9 @@ function onClickEntry(event) {//по нажатию на запись вывод
     inputUser = document.createElement("input");
     blockRight.appendChild(inputUser);
     inputUser.className ="search-field";
-    inputUser.name = "hidden";
-    inputUser.type = "text";
+    inputUser.name = "id";
+
+    inputUser.type = "hidden";
     inputUser.id = "inp11";
 
     //добавить поле hidden
@@ -208,11 +209,12 @@ function onClickEntry(event) {//по нажатию на запись вывод
     userData.value = currentTask.days;
     let userText = document.getElementById('inp3');
     userText.value = currentTask.textarea;
-
+   // buttonСhange.onclick = addEntry;
+    inputUser.value = currentTask.id;//значению users присваиваем id
 };
 
 
-// const focusedEntry = getFocusedEntry(event.target.id);//тут массив entrys фильтром перебираем el event.target -это исходный элемент, на котором произошло событие
+// let focusedEntry = getFocusedEntry(event.target.id);//тут массив entrys фильтром перебираем el event.target -это исходный элемент, на котором произошло событие
 // blockRight.id = focusedEntry.id;//по id и (event.target.id) сравниваем с id в бд на что нажали мышкой
 // blockRight.className = "focusedEntry";// класс в scc
 // blockRight.innerHTML = focusedEntry.user; //  вправый блок ложим то что получили из массива
