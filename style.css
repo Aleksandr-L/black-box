@@ -55,12 +55,8 @@
     flex-basis: 200px;
     text-align: center;
 }
-.flex-container {
-    text-align: center;
-    display: flex;
-    flex-direction: column-reverse;
-    flex-wrap: revert;
-}
+
+
 .blok {
     font-size: 5px;
     width: 100%;
@@ -145,13 +141,6 @@
     height: 20px;
 }
 
-.search-field:focus {
-    outline: none;
-}
-
-.search-field:focus + .search-icon {
-    /* стили для иконки при фокусе поля */
-}
 .input {
     background-image: https://image.flaticon.com/icons/svg/49/49116.svg;
     background-repeat: no-repeat; /*Убираем повтор изображения*/
@@ -164,7 +153,33 @@
     height: 20px; /*высота строки ввода*/
     font-size: 13px; /*размер шрифта*/
 }
+form-search {
+    display: inline-block;
+    border-bottom: 1px solid;
+}
+form-search input {
+    all: unset;
+}
+
 .entry {
-content:"&Chi;";
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.title {
+    width: 60%;
+
+}
+.data{
+    padding-right: 30px
+    width: 10%;
+}
+.delete {
+    width: 10%;
+
+}
+
+.change {
+    width: 5%;
 
 }

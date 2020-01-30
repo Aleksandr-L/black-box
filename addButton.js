@@ -1,25 +1,44 @@
-let a = document.querySelector('.search');
+document.addEventListener("DOMContentLoaded",function () {
+
+document.querySelector('#out').onkeyup = function () {
+   //debugger
+    let val = this.value.trim();
+    let outItems = document.querySelectorAll(".entry");
+    if(val !=""){
+        outItems.forEach(function(divElement){
+            if (divElement.innerText.indexOf(val) == -1){
+                divElement.classList.add('displayHidden');
+            }
+            else {
+                divElement.classList.remove("displayHidden");
+            }
+    });
+    }
+}
+});
+let dateOfRecording = document.querySelector('.data');
 let AddNewNote = document.querySelector('.note');
 let button_save = document.querySelector('.save');
 let div = document.querySelector(".block-left");
 let div2 = document.querySelector(".block-right");
 let blockRight = document.querySelector(".search-field");
-let dataDiv = document.getElementById("data");
+let dataDiv = document.querySelector(".entry");
 let entry = [];
 let editedEntry;
-let par = document.querySelector(".entry");
 let inputUsers = document.querySelector(".input");
 requestAllEntries(); //показывает записи при первоначальной загрузке
 let buttonСhange = document.querySelector('.change');
 let buttonСhange2 = document.querySelector('.change');
 let paragraph2 = document.querySelector('.entry');
-
-let divElement = document.querySelector(".entry");
+let divChange = document.querySelector(".change");
+let divDelete = document.querySelector(".delete");
+let divElement = document.querySelector(".title");
 let inputUser = document.querySelector(".displayHidden");
 const tasks = new Map();
 let currentTask;
 let result;
-function addChanges() {
+
+function addChanges() {//функция запрашивает изменения на файл changes.php
     //event.preventDefault();
     //выполняет запрос в бд отдали в функцию requestAllEntries массив
     let request =  new FormData(document.forms[0]);
@@ -30,11 +49,11 @@ function addChanges() {
         .then(response => response.text())
         .then(response => {
                // debugger
-                result = response;
+                result = response; //записываем пришедший результата
                 requestAllEntries();
             }
             )};
-AddNewNote.onclick = ()=> {
+AddNewNote.onclick = ()=> {// отображает правый блок
     // showEditContainer();
     blockRight.innerHTML= '';
 
@@ -85,14 +104,10 @@ AddNewNote.onclick = ()=> {
     buttonСhange.value = "save";
     buttonСhange.onclick = function (event) {
         //event.preventDefault();
-        addEntry();// отображает данные на страницу влевой части
+    addEntry();// отображает данные на страницу влевой части
     setTimeout(requestAllEntries, 500);// после добавления записи обновляем список
 };
         document.getElementById("data").addEventListener("click", onClickEntry);// при нажатии на запись переходит в правый блок
-};
-
-function getFocusedEntry(id) {//фильтрует и возвращает массив, присваивает id
-    return tasks.filter((el) => el.id === id)[0];//используется для фильтрации массива через функцию.
 };
 
 function requestAllEntries() {//принимает  данные из фукции addEntry и обрабатывает
@@ -103,40 +118,56 @@ function requestAllEntries() {//принимает  данные из фукци
         .then(response => response.json())
         .then(result => {
             if (Array.isArray(result)) {// проверка что массив это массив
-                dataDiv.innerText = '';
-                tasks.clear();
-                result.forEach(task => {
+                dataDiv.innerText = '';//перезатираем правую часть чтобы появлялась один раз
+               // tasks.clear();
+                result.forEach(task => {//циклом перебираю результат ложу в переменную task
                    tasks.set(task.id, task);
                 });
-                // entry = result;// в массив записей положили результат из бд
+
                 tasks.forEach((task) => {// перебираем массив
                     divElement = document.createElement("div");
                     divElement.id = task.id; //диву присвоили id элемента из бд
-                    divElement.className = "entry";
-                    divElement.innerHTML = task.user;
-                    // divElement.onclick = onClickEntry(event);
+                    divElement.className = "title";
+                    divElement.innerHTML =task.user; //в див вставляемимя имя пользователя из массива
                     dataDiv.appendChild(divElement);
+                    divElement.onclick = ()=> {
+                    blockRight.id = task.id;//по id и (event.target.id) сравниваем с id в бд на что нажали мышкой
+                    blockRight.innerHTML =task.user;
+                    };
+                    dataDiv.append();
 
+                    let dateOfRecording = document.createElement('div');
+                    dataDiv.append(dateOfRecording);
+                    dateOfRecording.className = "data";
+                    dateOfRecording.innerText =task.days;
+                    dateOfRecording.id = task.id;
+
+                    let divChange = document.createElement('div');//будет div change
+                    dataDiv.append(divChange);
+                    divChange.id = task.id;
+                    paragraph2 = document.createElement('a');
+                    divChange.className = "change";
+                    paragraph2.name ="&#128396;;";
+                    paragraph2.innerHTML = "&#128396;";
+                    paragraph2.id = task.id; //в id параграфа вставляем id массива
+                    divChange.append(paragraph2);
+                    paragraph2.onclick = onClickEntry;
+
+                    let divDelete = document.createElement('div');//будет div delete
+                    dataDiv.append(divDelete);
+                    divDelete.id = task.id;
                     let paragraph = document.createElement('a');
                     paragraph.href = "delete.php?id=" + task.id;//добавляем индентификатор к строке
-                    paragraph.className = "entry";
-                    paragraph.name = "удалить";
-                    paragraph.innerHTML = "&Chi;";
-                    divElement.append(paragraph);
+                    divDelete.className = "delete";
+                    paragraph.name = "&#10005;";
+                    paragraph.innerHTML = "&#10005;";
+                    divDelete.append(paragraph);
 
-                    // let space = document.createElement("br");
-                    // paragraph.after(space);
-                    paragraph2 = document.createElement('a');
-                    paragraph2.class = "entry";
-                    paragraph2.name = "изменить";
-                    paragraph2.innerHTML = "изменить";
-					paragraph2.id = task.id;
-                    divElement.append(paragraph2);
-                    paragraph2.onclick = onClickEntry;
                     });
                  }
             })
         }
+
 
 function addEntry() { //выполняет запрос в бд отдали в функцию requestAllEntries массив
     let request =  new FormData(document.forms[0]);
@@ -191,7 +222,7 @@ function onClickEntry(event) {//по нажатию на запись вывод
     inputUser.type = "hidden";
     inputUser.id = "inp11";
 
-    //добавить поле hidden
+
     let buttonСhange = document.createElement("input");
     blockRight.appendChild(buttonСhange);
     buttonСhange.className ="save";
@@ -209,14 +240,17 @@ function onClickEntry(event) {//по нажатию на запись вывод
     userData.value = currentTask.days;
     let userText = document.getElementById('inp3');
     userText.value = currentTask.textarea;
-   // buttonСhange.onclick = addEntry;
     inputUser.value = currentTask.id;//значению users присваиваем id
+
 };
 
-
-// let focusedEntry = getFocusedEntry(event.target.id);//тут массив entrys фильтром перебираем el event.target -это исходный элемент, на котором произошло событие
-// blockRight.id = focusedEntry.id;//по id и (event.target.id) сравниваем с id в бд на что нажали мышкой
-// blockRight.className = "focusedEntry";// класс в scc
-// blockRight.innerHTML = focusedEntry.user; //  вправый блок ложим то что получили из массива
-
-
+// function myFunction() {
+//     let input, filter;
+//     input = document.getElementById('');
+//     filter = input.value.toUpperCase();
+//     for (i=0; i<tasks.length; i++){
+//
+//     }
+//
+// }
+//
