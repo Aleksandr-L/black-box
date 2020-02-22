@@ -1,9 +1,9 @@
+//блок поиска
 document.addEventListener("DOMContentLoaded",function () {
-
 document.querySelector('#out').onkeyup = function () {
    //debugger
     let val = this.value.trim();
-    let outItems = document.querySelectorAll(".entry");
+    let outItems = document.querySelectorAll(".entry-note");
     if(val !=""){
         outItems.forEach(function(divElement){
             if (divElement.innerText.indexOf(val) == -1){
@@ -16,99 +16,89 @@ document.querySelector('#out').onkeyup = function () {
     }
 }
 });
-let dateOfRecording = document.querySelector('.data');
+//иницилизация переменных
 let AddNewNote = document.querySelector('.note');
-let button_save = document.querySelector('.save');
-let div = document.querySelector(".block-left");
-let div2 = document.querySelector(".block-right");
 let blockRight = document.querySelector(".search-field");
-let dataDiv = document.querySelector(".entry");
-let entry = [];
-let editedEntry;
-let inputUsers = document.querySelector(".input");
+let mainUnit = document.querySelector(".entry");// главный блок
 requestAllEntries(); //показывает записи при первоначальной загрузке
-let buttonСhange = document.querySelector('.change');
-let buttonСhange2 = document.querySelector('.change');
-let paragraph2 = document.querySelector('.entry');
-let divChange = document.querySelector(".change");
-let divDelete = document.querySelector(".delete");
-let divElement = document.querySelector(".title");
-let inputUser = document.querySelector(".displayHidden");
 const tasks = new Map();
 let currentTask;
-let result;
-
-function addChanges() {//функция запрашивает изменения на файл changes.php
-    //event.preventDefault();
-    //выполняет запрос в бд отдали в функцию requestAllEntries массив
-    let request =  new FormData(document.forms[0]);
-    fetch("changes.php",{
-        method: 'POST',
-        body: request
-    })
-        .then(response => response.text())
-        .then(response => {
-               // debugger
-                result = response; //записываем пришедший результата
-                requestAllEntries();
-            }
-            )};
-AddNewNote.onclick = ()=> {// отображает правый блок
-    // showEditContainer();
-    blockRight.innerHTML= '';
-
-    let inputUsers = document.createElement("input");
-    blockRight.appendChild(inputUsers);
-    inputUsers.className ="block_right";
-    inputUsers.name = "users";
-    inputUsers.type = "text";
-    inputUsers.id = "inp1";
-
+function createSpace (tagName) {//создать пробелы
     let space = document.createElement("br");
-    inputUsers.after(space);
-    let space2 = document.createElement("br");
-    inputUsers.after(space2);
+    space.name = tagName;
+    space.className = "block_right2";
+    return space;
+}
+//функции
+function createInput(id, name, type, className) {//создать поля ввода
+    let fieldUsers = document.createElement("input");
+    fieldUsers.className = className;
+    fieldUsers.name = name;
+    fieldUsers.type = type;
+    fieldUsers.id = id;
+    return fieldUsers;
+}
+function createBotton(name, type, value) { //кнопка вызова
+    let buttonSave = document.createElement("input");
+    buttonSave.className ="block_right";
+    buttonSave.className ="save";
+    buttonSave.name = name;
+    buttonSave.type = type;
+    buttonSave.value = value;
+    return buttonSave;
+}
 
-    let inputUsers2 = document.createElement("input");
-    blockRight.appendChild(inputUsers2);
-    inputUsers2.className ="block_right";
-    inputUsers2.name = "days";
-    inputUsers2.type = "date";
-    inputUsers2.id = "inp2";
-
-    let space3 = document.createElement("br");
-    inputUsers2.after(space3);
-    let space23 = document.createElement("br");
-    inputUsers2.after(space23);
-
-    let inputUsers3 = document.createElement("input");
-    blockRight.appendChild(inputUsers3);
-    inputUsers3.className ="block_right2";
-    inputUsers3.name = "textarea";
-    inputUsers3.type = "text";
-    inputUsers3.id = "inp3";
-
-    inputUser = document.createElement("input");
-    blockRight.appendChild(inputUser);
-    inputUser.className ="search-field";
-    inputUser.name = "hidden";
-    inputUser.type = "text";
-    inputUser.id = "inp11";
-
-    //добавить поле hidden
-    let buttonСhange = document.createElement("input");
-    blockRight.appendChild(buttonСhange);
-    buttonСhange.className ="save";
-    buttonСhange.name = "registr";
-    buttonСhange.type = "button";
-    buttonСhange.value = "save";
-    buttonСhange.onclick = function (event) {
-        //event.preventDefault();
+function addNewNote (event) {//добавить новую запись
     addEntry();// отображает данные на страницу влевой части
     setTimeout(requestAllEntries, 500);// после добавления записи обновляем список
+    document.getElementById("data").addEventListener("click", onClickEntry);// при нажатии на запись переходит в правый блок
 };
-        document.getElementById("data").addEventListener("click", onClickEntry);// при нажатии на запись переходит в правый блок
+//блок кода
+AddNewNote.onclick = ()=> {// отображает правый блок
+    blockRight.innerHTML= '';
+    let fieldUsers = createInput("inp1", "users", "text","block_right");
+    blockRight.appendChild(fieldUsers);
+
+    let space = createSpace("br");
+    fieldUsers.after(space);
+    space = createSpace("br");
+    fieldUsers.after(space);
+
+    let inputUsers2 = createInput("inp2", "days", "date","block_right");
+    blockRight.appendChild(inputUsers2);
+
+    space = createSpace("br");
+    inputUsers2.after(space);
+    space = createSpace("br");
+    inputUsers2.after(space);
+
+    let inputUsers3 = createInput("inp3","textarea","text", "block_right2" );
+    blockRight.appendChild(inputUsers3);
+
+    fieldUsers = createInput("inp11", "hidden", "text","search-field" );
+    blockRight.appendChild(fieldUsers);
+
+    let buttonSave = createBotton("registr", "button", "save") ;
+    blockRight.appendChild(buttonSave);
+    buttonSave.onclick = addNewNote;
 };
+
+function clickDivElement(event) {
+    let target = event.target.closest(".entry-note");
+    let id = target.dataset.id;
+    blockRight.id = id;
+    blockRight.innerHTML = tasks.get(id).user;
+}
+
+function userMemory(className, name, innerHTML, task) {
+    let userNote = document.createElement("div");
+   // userNote.innerHTML = innerHTML;
+   if(task){
+    userNote.dataset.id = task.id;}
+    userNote.className = className;
+    userNote.name = name;
+    return userNote;
+ }
 
 function requestAllEntries() {//принимает  данные из фукции addEntry и обрабатывает
 
@@ -118,139 +108,131 @@ function requestAllEntries() {//принимает  данные из фукци
         .then(response => response.json())
         .then(result => {
             if (Array.isArray(result)) {// проверка что массив это массив
-                dataDiv.innerText = '';//перезатираем правую часть чтобы появлялась один раз
-               // tasks.clear();
+                mainUnit.innerText = '';//перезатираем правую часть чтобы появлялась один раз
                 result.forEach(task => {//циклом перебираю результат ложу в переменную task
                    tasks.set(task.id, task);
                 });
-
                 tasks.forEach((task) => {// перебираем массив
-                    divElement = document.createElement("div");
-                    divElement.id = task.id; //диву присвоили id элемента из бд
-                    divElement.className = "title";
-                    divElement.innerHTML =task.user; //в див вставляемимя имя пользователя из массива
-                    dataDiv.appendChild(divElement);
-                    divElement.onclick = ()=> {
-                    blockRight.id = task.id;//по id и (event.target.id) сравниваем с id в бд на что нажали мышкой
-                    blockRight.innerHTML =task.user;
-                    };
-                    dataDiv.append();
+                    let сontainer = userMemory("entry-note");
+                    сontainer.dataset.id = task.id;
 
-                    let dateOfRecording = document.createElement('div');
-                    dataDiv.append(dateOfRecording);
-                    dateOfRecording.className = "data";
-                    dateOfRecording.innerText =task.days;
-                    dateOfRecording.id = task.id;
+                    let userNote = userMemory( "title", "user", task.user);//заметка пользователя
+                    //userNote.innerHTML = task.user; //в див вставляемимя имя пользователя из массива
+                    mainUnit.appendChild(userNote);
+                    userNote.onclick = clickDivElement;
+                    сontainer.append(userNote);
 
-                    let divChange = document.createElement('div');//будет div change
-                    dataDiv.append(divChange);
-                    divChange.id = task.id;
-                    paragraph2 = document.createElement('a');
-                    divChange.className = "change";
-                    paragraph2.name ="&#128396;;";
-                    paragraph2.innerHTML = "&#128396;";
-                    paragraph2.id = task.id; //в id параграфа вставляем id массива
-                    divChange.append(paragraph2);
-                    paragraph2.onclick = onClickEntry;
+                    let dateOfRecording = userMemory("data","data", task.days);//дата
+                    сontainer.append(dateOfRecording);
+                    dateOfRecording.innerHTML =task.days;
 
-                    let divDelete = document.createElement('div');//будет div delete
-                    dataDiv.append(divDelete);
-                    divDelete.id = task.id;
-                    let paragraph = document.createElement('a');
-                    paragraph.href = "delete.php?id=" + task.id;//добавляем индентификатор к строке
-                    divDelete.className = "delete";
-                    paragraph.name = "&#10005;";
-                    paragraph.innerHTML = "&#10005;";
-                    divDelete.append(paragraph);
+                    let noteChange = userMemory("change");// изменения заметка
+                    сontainer.append(noteChange);
 
-                    });
+                    let linkChange = userMemory("change", "&#128396;;" );//ссылка для изменения
+                    linkChange.innerHTML = "&#128396;";
+                    noteChange.append(linkChange);
+                    linkChange.onclick = onClickEntry;
+
+                    let noteDelete = userMemory( "delete");//будет div delete
+                    сontainer.append(noteDelete);
+
+                    let linkNoteDelete = linkDElete("delete","&#10005;","&#10005;",task);
+                    noteDelete.append(linkNoteDelete);
+                    mainUnit.append(сontainer);
+                });
                  }
             })
         }
 
+function linkDElete(className, name, innerHTML, task) {
+    let link = document.createElement('a');//ссылка для удаления
+    link.href = "delete.php?id=" + task.id;//добавляем индентификатор к строке
+    link.className = className;
+    link.name = name;
+    link.innerHTML = innerHTML;
+    return link;
+}
 
-function addEntry() { //выполняет запрос в бд отдали в функцию requestAllEntries массив
+function addEntry() { // добавить запись выполняет запрос в бд отдали в функцию requestAllEntries массив
     let request =  new FormData(document.forms[0]);
     fetch("planner.php", {
         method: 'POST',
         body: request
     })
         .then(response => response.json())
-    // .then(result);
-    // requestAllEntries()
     };
 
+function addChanges() {//добавить изменения, выполняет запрос в бд отдали в функцию requestAllEntries массив
+    let request =  new FormData(document.forms[0]);
+    fetch("changes.php",{
+        method: 'POST',
+        body: request
+    })
+        .then(response => response.text())
+        .then(response => {
+                // debugger
+                result = response; //записываем пришедший результата
+                requestAllEntries();
+            }
+        )};
 
-function onClickEntry(event) {//по нажатию на запись выводим ее в правый блок
+function onClickEntry(event) {//при клике на запись выводим ее в правый блок
     blockRight.innerHTML= '';
-    let inputUsers = document.createElement("input");
-    blockRight.appendChild(inputUsers);
-    inputUsers.className ="block_right";
-    inputUsers.name = "users";
-    inputUsers.type = "text";
-    inputUsers.id = "inp1";
+    let fieldUsers = createInput("inp1", "users", "text", "block_right");
+    blockRight.appendChild(fieldUsers);
 
-    let space = document.createElement("br");
-    inputUsers.after(space);
-    let space2 = document.createElement("br");
-    inputUsers.after(space2);
+    let space = createSpace("br");
+    fieldUsers.after(space);
+    space = createSpace("br");
+    fieldUsers.after(space);
 
-    let inputUsers2 = document.createElement("input");
+    let inputUsers2 = createInput("inp2", "days", "date", "block_right");
     blockRight.appendChild(inputUsers2);
-    inputUsers2.className ="block_right";
-    inputUsers2.name = "days";
-    inputUsers2.type = "date";
-    inputUsers2.id = "inp2";
 
-    let space3 = document.createElement("br");
-    inputUsers2.after(space3);
-    let space23 = document.createElement("br");
-    inputUsers2.after(space23);
+    space = createSpace("br");
+    inputUsers2.after(space);
+    space = createSpace("br");
+    inputUsers2.after(space);
 
-    let inputUsers3 = document.createElement("input");
-    blockRight.appendChild(inputUsers3);
+    let inputUsers3 = createInput("inp3","textarea","text");
     inputUsers3.className ="block_right2";
-    inputUsers3.name = "textarea";
-    inputUsers3.type = "text";
-    inputUsers3.id = "inp3";
+    blockRight.appendChild(inputUsers3);
 
-    inputUser = document.createElement("input");
-    blockRight.appendChild(inputUser);
-    inputUser.className ="search-field";
-    inputUser.name = "id";
+    fieldUsers = createInput("inp11", "id", "hidden");
+    blockRight.appendChild(fieldUsers);
+    fieldUsers.className ="search-field";
 
-    inputUser.type = "hidden";
-    inputUser.id = "inp11";
+    let buttonSave = createBotton("registr", "button", "изменить") ;
+    blockRight.appendChild(buttonSave);
+    buttonSave.onclick = addChanges;
 
+    let target = event.target.closest(".entry-note");
+    let id = target.dataset.id;
+    currentTask = tasks.get(id);
+	let userInput = userNotes("inp1",currentTask.user);
 
-    let buttonСhange = document.createElement("input");
-    blockRight.appendChild(buttonСhange);
-    buttonСhange.className ="save";
-    buttonСhange.name = "registr";
-    buttonСhange.type = "button";
-    buttonСhange.value = "изменить";
-    buttonСhange.onclick = addChanges;
-    currentTask = tasks.get(event.target.id);
-    console.log("event.target", event.target);
-    let userInput = document.getElementById('inp1');
-    console.log(userInput);
-    userInput.value = currentTask.user;
     currentTime = tasks.get(event.target.days);
-    let userData = document.getElementById('inp2');
-    userData.value = currentTask.days;
-    let userText = document.getElementById('inp3');
-    userText.value = currentTask.textarea;
-    inputUser.value = currentTask.id;//значению users присваиваем id
-
+    let userData = userNotes('inp2', currentTask.days);
+    let userText = userNotes('inp3', currentTask.textarea);
+    fieldUsers.value = currentTask.id;//значению users присваиваем id
 };
 
-// function myFunction() {
-//     let input, filter;
-//     input = document.getElementById('');
-//     filter = input.value.toUpperCase();
-//     for (i=0; i<tasks.length; i++){
-//
-//     }
-//
-// }
-//
+function userNotes(id, value) {
+	let userInput = document.getElementById(id);
+	    userInput.value = value;
+	return userInput;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+

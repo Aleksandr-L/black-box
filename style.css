@@ -131,8 +131,7 @@
 }
 
 .displayHidden{
-    display:none;
-
+    display:none !important;
 }
 
 
@@ -163,23 +162,35 @@ form-search input {
 
 .entry {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    flex-direction: column;
 
 }
+.entry-note{
+    display: flex;
+    flex-direction: row;
+}
 .title {
-    width: 60%;
+
+    width: 50%;
+    height: 20px;
 
 }
 .data{
-    padding-right: 30px
-    width: 10%;
+    padding-right: -5px
+
+    text-align: right;
+    width: 25%;
+    height: 20px;
 }
 .delete {
     width: 10%;
+    text-align: right;
 
 }
 
 .change {
     width: 5%;
+    text-align: right;
 
 }
