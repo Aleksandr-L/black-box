@@ -47,12 +47,43 @@ function createBotton(name, type, value) { //кнопка вызова
     buttonSave.value = value;
     return buttonSave;
 }
-
 function addNewNote (event) {//добавить новую запись
     addEntry();// отображает данные на страницу влевой части
     setTimeout(requestAllEntries, 500);// после добавления записи обновляем список
     document.getElementById("data").addEventListener("click", onClickEntry);// при нажатии на запись переходит в правый блок
 };
+function clickDivElement(event) {
+    let target = event.target.closest(".entry-note");
+    let id = target.dataset.id;
+    blockRight.id = id;
+    blockRight.innerHTML = tasks.get(id).user;
+}
+function userMemory(className, key,  task) {
+    let userNote = document.createElement("div");
+    if(task){
+        console.log(key,task[key]);
+        userNote.innerHTML = task[key];//точечная нотация
+        userNote.dataset.id = task.id;}
+    userNote.className = className;
+    return userNote;
+}
+function userMemoryСhange(className, innerHTML,  task) {
+    let userNote = document.createElement("div");
+    userNote.innerHTML = innerHTML;
+    userNote.className = className;
+    return userNote;
+}
+function userMemoryNoteChange(className) {
+    let userNote = document.createElement("div");
+    userNote.className = className;
+    return userNote;
+}
+function userMemoryDelete(className) {
+    let userNote = document.createElement("div");
+    userNote.className = className;
+    return userNote;
+}
+
 //блок кода
 AddNewNote.onclick = ()=> {// отображает правый блок
     blockRight.innerHTML= '';
@@ -83,23 +114,6 @@ AddNewNote.onclick = ()=> {// отображает правый блок
     buttonSave.onclick = addNewNote;
 };
 
-function clickDivElement(event) {
-    let target = event.target.closest(".entry-note");
-    let id = target.dataset.id;
-    blockRight.id = id;
-    blockRight.innerHTML = tasks.get(id).user;
-}
-
-function userMemory(className, name, innerHTML, task) {
-    let userNote = document.createElement("div");
-   // userNote.innerHTML = innerHTML;
-   if(task){
-    userNote.dataset.id = task.id;}
-    userNote.className = className;
-    userNote.name = name;
-    return userNote;
- }
-
 function requestAllEntries() {//принимает  данные из фукции addEntry и обрабатывает
 
     fetch("planner_Get.php", {
@@ -116,25 +130,26 @@ function requestAllEntries() {//принимает  данные из фукци
                     let сontainer = userMemory("entry-note");
                     сontainer.dataset.id = task.id;
 
-                    let userNote = userMemory( "title", "user", task.user);//заметка пользователя
-                    //userNote.innerHTML = task.user; //в див вставляемимя имя пользователя из массива
-                    mainUnit.appendChild(userNote);
+
+                    let userNote = userMemory( "title", "user", task);//заметка пользователя
+                   // userNote.innerHTML = task.user; //в див вставляемимя имя пользователя из массива
+                   //  mainUnit.appendChild(userNote);
                     userNote.onclick = clickDivElement;
                     сontainer.append(userNote);
 
-                    let dateOfRecording = userMemory("data","data", task.days);//дата
+                    let dateOfRecording = userMemory("data","days", task);//дата
                     сontainer.append(dateOfRecording);
-                    dateOfRecording.innerHTML =task.days;
+                    //dateOfRecording.innerHTML =task.days;
 
-                    let noteChange = userMemory("change");// изменения заметка
+                    let noteChange = userMemoryNoteChange("change");// изменения заметка
                     сontainer.append(noteChange);
-
-                    let linkChange = userMemory("change", "&#128396;;" );//ссылка для изменения
-                    linkChange.innerHTML = "&#128396;";
+// debugger
+                    let linkChange = userMemoryСhange("change", "&#128396;;", task);//ссылка для изменения
+                    //linkChange.innerHTML = "&#128396;";
                     noteChange.append(linkChange);
                     linkChange.onclick = onClickEntry;
 
-                    let noteDelete = userMemory( "delete");//будет div delete
+                    let noteDelete = userMemoryDelete( "delete");//будет div delete
                     сontainer.append(noteDelete);
 
                     let linkNoteDelete = linkDElete("delete","&#10005;","&#10005;",task);
@@ -153,7 +168,6 @@ function linkDElete(className, name, innerHTML, task) {
     link.innerHTML = innerHTML;
     return link;
 }
-
 function addEntry() { // добавить запись выполняет запрос в бд отдали в функцию requestAllEntries массив
     let request =  new FormData(document.forms[0]);
     fetch("planner.php", {
@@ -162,7 +176,6 @@ function addEntry() { // добавить запись выполняет зап
     })
         .then(response => response.json())
     };
-
 function addChanges() {//добавить изменения, выполняет запрос в бд отдали в функцию requestAllEntries массив
     let request =  new FormData(document.forms[0]);
     fetch("changes.php",{
@@ -176,7 +189,6 @@ function addChanges() {//добавить изменения, выполняет
                 requestAllEntries();
             }
         )};
-
 function onClickEntry(event) {//при клике на запись выводим ее в правый блок
     blockRight.innerHTML= '';
     let fieldUsers = createInput("inp1", "users", "text", "block_right");
@@ -211,7 +223,6 @@ function onClickEntry(event) {//при клике на запись выводи
     let id = target.dataset.id;
     currentTask = tasks.get(id);
 	let userInput = userNotes("inp1",currentTask.user);
-
     currentTime = tasks.get(event.target.days);
     let userData = userNotes('inp2', currentTask.days);
     let userText = userNotes('inp3', currentTask.textarea);
