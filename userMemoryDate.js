@@ -1,6 +1,6 @@
 (function () {
-    App.userMemory = userMemory;
-    function userMemory(className, key,  task) {
+    App.userMemoryDate = userMemoryDate;
+    function userMemoryDate(className, key,  task) {
         let userNote = document.createElement("div");
         if(task){
         userNote.innerHTML = task[key];//точечная нотация
@@ -9,4 +9,4 @@
         return userNote;
     }
 })();
-//App.userMemory();
+App.userMemoryDate();

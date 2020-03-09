@@ -3,8 +3,9 @@ const tasks = new Map();
 let AddNewNote = document.querySelector('.note');
 let blockRight = document.querySelector(".search-field");
 let mainUnit = document.querySelector(".entry");// главный блок
-requestAllEntries(); //показывает записи при первоначальной загрузке
-
+//App.requestAllEntries(); //показывает записи при первоначальной загрузке
+(function () {
+    App.requestAllEntries = requestAllEntries;
 function requestAllEntries() {//принимает  данные из фукции addEntry и обрабатывает
     fetch("planner_Get.php", {
         method: 'POST'
@@ -17,36 +18,38 @@ function requestAllEntries() {//принимает  данные из фукци
                    tasks.set(task.id, task);
                 });
                 tasks.forEach((task) => {// перебираем массив
-                    let сontainer = userMemory("entry-note");
-                    сontainer.dataset.id = task.id;
-                    let userNote = userMemory( "title", "user", task);//заметка пользователя
+                    let divContainer = App.userMemoryClass("entry-note");
+                    divContainer.dataset.id = task.id;
+                    let userNote = App.userMemory( "title", "user", task);//заметка пользователя
                    // userNote.innerHTML = task.user; //в див вставляемимя имя пользователя из массива
                    //  mainUnit.appendChild(userNote);
-                    userNote.onclick = clickDivElement;
-                    сontainer.append(userNote);
+                    userNote.onclick = App.clickDivElement;
+                    divContainer.append(userNote);
 
-                    let dateOfRecording = userMemory("data","days", task);//дата
-                    сontainer.append(dateOfRecording);
+                    let dateOfRecording = App.userMemoryDate("data","days", task);//дата
+                    divContainer.append(dateOfRecording);
                     //dateOfRecording.innerHTML =task.days;
 
-                    let noteChange = userMemoryNoteChange("change");// изменения заметка
-                    сontainer.append(noteChange);
+                    let noteChange = App.userMemoryNoteChange("change");// изменения заметка
+                    divContainer.append(noteChange);
 
-                    let linkChange = userMemoryСhange("change", "&#128396;;", task);//ссылка для изменения
+                    let linkChange = App.userMemoryСhange("change", "&#128396;;", task);//ссылка для изменения
                     //linkChange.innerHTML = "&#128396;";
                     noteChange.append(linkChange);
-                    linkChange.onclick = onClickEntry;
+                    linkChange.onclick = App.onClickEntry;
 
-                    let noteDelete = userMemoryDelete( "delete");//будет div delete
-                    сontainer.append(noteDelete);
+                    let noteDelete = App.userMemoryDelete( "delete");//будет div delete
+                    divContainer.append(noteDelete);
 
-                    let linkNoteDelete = linkDElete("delete","&#10005;","&#10005;",task);
+                    let linkNoteDelete = App.linkDelete("delete","&#10005;",task);
                     noteDelete.append(linkNoteDelete);
-                    mainUnit.append(сontainer);
+                    mainUnit.append(divContainer);
                 });
                  }
             })
         }
+})();
+App.requestAllEntries();
 
 
 

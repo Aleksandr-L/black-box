@@ -1,4 +1,5 @@
 let App = {};
+
 (function () {
     App.createInput = createInput;
     function createInput(id, name, type, className) {//создать поля ввода
@@ -11,3 +12,4 @@ let App = {};
     }
 })();
 App.createInput();
+console.log(App);

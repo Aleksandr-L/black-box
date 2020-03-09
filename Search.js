@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded",function () {
+
+let search = document.addEventListener("DOMContentLoaded",function () {
     document.querySelector('#out').onkeyup = function () {
         //debugger
         let val = this.value.trim();
@@ -15,3 +16,4 @@ document.addEventListener("DOMContentLoaded",function () {
         }
     }
 });
+App.search = search;
